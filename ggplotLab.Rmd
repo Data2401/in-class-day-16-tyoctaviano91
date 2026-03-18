@@ -1,6 +1,6 @@
 ---
 title: "Practice with dplyr and ggplot2"
-author: "Dr. Shoemaker"
+author: "Tyler Guerrero"
 date: "DATA 2401"
 output: html_document
 ---
@@ -19,6 +19,7 @@ We'll start by making some histograms.
 library(dslabs) 
 data(heights)
 glimpse(heights)
+head(heights)
 ```
 
 This data is the heights of humans, divided by their biological sex.
@@ -26,31 +27,38 @@ This data is the heights of humans, divided by their biological sex.
 Use ggplot to make a histogram of all of the heights:
 
 ```{r}
-
+ggplot(data = heights, aes(height)) + geom_histogram()
 
 ```
 
 Change up the binwidth and see how the plots change. Try 1, 5, 10, and 20
 
 ```{r}
+ggplot(data = heights, aes(height)) + geom_histogram(binwidth = 1)
+ggplot(data = heights, aes(height)) + geom_histogram(binwidth = 5)
+ggplot(data = heights, aes(height)) + geom_histogram(binwidth = 10)
+ggplot(data = heights, aes(height)) + geom_histogram(binwidth = 20)
 
 ```
 
 Smooth this out to an emperical density with `geom_density()`
 
 ```{r}
+ggplot(data = heights, aes(height)) + geom_density()
 
 ```
 
 Use a new argument in the `aes()`, `group =` to split this density by sex
 
 ```{r}
+ggplot(data = heights, aes(height)) + geom_density(aes(group = sex))
 
 ```
 
 OR we can do it with `color` or `fill.` If you say you want to color by sex, R knows that you want a different curve for each of them.
 
 ```{r}
+ggplot(data = heights, aes(height)) + geom_density(aes(fill = sex))
 
 
 ```
@@ -58,6 +66,7 @@ OR we can do it with `color` or `fill.` If you say you want to color by sex, R k
 If you've used fill, then there is now a slight issue that they are overlapped. We can fix this with alpha transparency!
 
 ```{r}
+ggplot(data = heights, aes(height)) + geom_density(alpha = 1/2, aes(fill = sex))
 
 
 ```
@@ -65,6 +74,7 @@ If you've used fill, then there is now a slight issue that they are overlapped. 
 Let's make some boxplots of the same information.
 
 ```{r}
+ggplot(data = heights, aes(height)) + geom_boxplot(aes(fill = sex))
 
 ```
 
